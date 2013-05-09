@@ -4,5 +4,9 @@
     <string name="app_name">Maimuta</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    
+    <!--  Ressources pour MainActivity -->
+    <string name="edit_text_name">Votre pseudo ici</string>
 
 </resources>
