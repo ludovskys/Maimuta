@@ -11,12 +11,31 @@
     
     <EditText
         android:id="@+id/editTextName"
+        android:layout_width="300sp"
+        android:layout_height="100sp"
+        android:layout_centerHorizontal="true"
+        android:ems="30"
+        android:gravity="center"
+        android:hint="@string/edit_text_name"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="30sp" />
+    
+    <Button
+        android:id="@+id/buttonStartTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:inputType="text"
-        android:hint="@string/edit_text_name"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:background="@drawable/custom_start_button"
+        android:text="@string/start_test"
+        android:textSize="30sp"
         android:textColor="@color/white"
-        android:ems="30" />
+        android:shadowColor="@color/text_shadow"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1" />
 
 </RelativeLayout>
