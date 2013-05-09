@@ -1,6 +1,7 @@
 package com.example.maimuta;
 
 import android.app.Application;
+import android.util.Log;
 
 public class MaimutaApplication extends Application {
 
