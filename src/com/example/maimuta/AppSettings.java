@@ -8,12 +8,6 @@ public class AppSettings {
 	// CONSTANTES
 	
 	public static final String MAIMUTA_PREFS_NAME = "MaimutaPrefs";
-
-	// VALEURS POSSIBLES POUR LES PREFERENCES
-
-	public static final int STATUS_UNLOGGED      = 0;
-	public static final int STATUS_GUEST         = 1;
-	public static final int STATUS_MEMBER_LOGGED = 2;
 	
 	// METHODES
 	
@@ -31,6 +25,23 @@ public class AppSettings {
 		SharedPreferences settings = _app.getSharedPreferences(MAIMUTA_PREFS_NAME, android.content.Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
 	    editor.putBoolean(name, value);
+	    editor.commit();
+	}
+	
+	public static String getString(String name)
+	{
+		Application _app = MaimutaApplication.getApp();
+		SharedPreferences settings = _app.getSharedPreferences(MAIMUTA_PREFS_NAME, android.content.Context.MODE_PRIVATE);
+		String result = settings.getString(name, "");
+		return result;
+	}
+
+	public static void setString(String name, String value)
+	{
+		Application _app = MaimutaApplication.getApp();
+		SharedPreferences settings = _app.getSharedPreferences(MAIMUTA_PREFS_NAME, android.content.Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = settings.edit();
+	    editor.putString(name, value);
 	    editor.commit();
 	}
 
