@@ -1,6 +1,5 @@
 package com.example.maimuta;
 
-
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -121,14 +120,28 @@ public class MainActivity extends Activity {
 			if(item.getItemId() == CONTEXT_MENU_CHOOSE_TYPE_CHOICE_TRAINING_PROGRAM)
 			{
 				// training program
+				Intent i = new Intent(MainActivity.this, BeforeTrainingProgramTestActivity.class);
+				startActivity(i);
+				res = true;
 			}
 			else if(item.getItemId() == CONTEXT_MENU_CHOOSE_TYPE_CHOICE_DMS)
 			{
 				// dms
+				Intent i = new Intent(MainActivity.this, BeforeDMSorDNMSTestActivity.class);
+				// On spécifie le type de test
+				i.putExtra("testType", SystemUtils.DMS_TEST);
+				startActivity(i);
+				res = true;
 			}
 			else if(item.getItemId() == CONTEXT_MENU_CHOOSE_TYPE_CHOICE_DNMS)
 			{
 				// dnms
+				
+				Intent i = new Intent(MainActivity.this, BeforeDMSorDNMSTestActivity.class);
+				// On spécifie le type de test
+				i.putExtra("testType", SystemUtils.DNMS_TEST);
+				startActivity(i);
+				res = true;
 			}
 			else 
 			{

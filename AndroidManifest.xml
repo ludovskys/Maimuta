@@ -3,7 +3,7 @@
     package="com.example.maimuta"
     android:versionCode="1"
     android:versionName="1.0" >
-    
+
     <!-- permission pour l'utilisation d'Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -27,6 +27,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.maimuta.BeforeDMSorDNMSTestActivity"
+            android:label="@string/title_activity_before_dmsor_dnms" >
+        </activity>
+        <activity
+            android:name="com.example.maimuta.BeforeTrainingProgramTestActivity"
+            android:label="@string/title_activity_before_training_program_test" >
         </activity>
     </application>
 

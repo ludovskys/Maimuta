@@ -11,7 +11,8 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int text_shadow=0x7f040001;
+        public static final int black=0x7f040001;
+        public static final int text_shadow=0x7f040002;
         public static final int white=0x7f040000;
     }
     public static final class dimen {
@@ -25,44 +26,54 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int custom_start_button=0x7f020000;
-        public static final int foret=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int start_button_highlighted=0x7f020003;
-        public static final int start_button_normal=0x7f020004;
+        public static final int custom_rounded_shape=0x7f020000;
+        public static final int custom_start_button=0x7f020001;
+        public static final int foret=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int start_button_highlighted=0x7f020004;
+        public static final int start_button_normal=0x7f020005;
     }
     public static final class id {
-        public static final int action_settings=0x7f090003;
-        public static final int buttonStartTest=0x7f090002;
-        public static final int editTextName=0x7f090001;
-        public static final int relativeLayoutMain=0x7f090000;
+        public static final int action_settings=0x7f090006;
+        public static final int buttonStartTest=0x7f090005;
+        public static final int editTextName=0x7f090004;
+        public static final int listView1=0x7f090000;
+        public static final int listViewTrainingProgramParameters=0x7f090002;
+        public static final int relativeLayoutMain=0x7f090003;
+        public static final int textView1=0x7f090001;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
+        public static final int activity_before_dms_or_dnms_test=0x7f030000;
+        public static final int activity_before_training_program_test=0x7f030001;
+        public static final int activity_main=0x7f030002;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
+        public static final int before_dmsor_dnm=0x7f080000;
+        public static final int before_training_program_test=0x7f080001;
+        public static final int main=0x7f080002;
     }
     public static final class string {
         public static final int action_bar_subtitle=0x7f060005;
-        /**   ActionBar 
+        /**  ActionBar 
          */
         public static final int action_bar_title=0x7f060004;
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
-        /**   Menu contextuel - MainActivity 
+        /**  Menu contextuel - MainActivity 
          */
         public static final int context_menu_choose_type=0x7f060009;
         public static final int context_menu_choose_type_choice_dms=0x7f06000b;
         public static final int context_menu_choose_type_choice_dnms=0x7f06000c;
         public static final int context_menu_choose_type_choice_training_program=0x7f06000a;
-        /**   Ressources pour MainActivity 
+        /**  Ressources pour MainActivity 
          */
         public static final int edit_text_name=0x7f060006;
         public static final int error=0x7f060003;
         public static final int fill_name=0x7f060008;
         public static final int hello_world=0x7f060002;
         public static final int start_test=0x7f060007;
+        public static final int title_activity_before_dmsor_dnms=0x7f06000d;
+        public static final int title_activity_before_training_program_test=0x7f06000e;
     }
     public static final class style {
         /** 
