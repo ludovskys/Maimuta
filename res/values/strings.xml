@@ -23,4 +23,13 @@
     <string name="title_activity_before_dmsor_dnms">BeforeDMSorDNMSActivity</string>
     <string name="title_activity_before_training_program_test">BeforeTrainingProgramTestActivity</string>
 
+    <!-- Clés pour la listeview -->
+    <string name="key_parameter_tag_1">key_parameter_tag_1</string>
+    <string name="key_parameter_tag_2">key_parameter_tag_2</string>
+
+    <!-- Menu avant un test -->
+    <string name="start">Commencer</string>
+    <string name="fill_input_text">Merci de renseigner les champs manquants</string>
+    <string name="title_activity_training_program_test">TrainingProgramTestActivity</string>
+
 </resources>

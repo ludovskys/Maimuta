@@ -2,96 +2,241 @@ package com.example.maimuta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class BeforeTrainingProgramTestActivity extends Activity {
 	
-	// All static variables
-    static final String URL = "http://api.androidhive.info/music/music.xml";
-    // XML node keys
-    static final String KEY_SONG = "song"; // parent node
-    static final String KEY_ID = "id";
-    static final String KEY_TITLE = "title";
-    static final String KEY_ARTIST = "artist";
-    static final String KEY_DURATION = "duration";
-    static final String KEY_THUMB_URL = "thumb_url";
-	
 	ListView listViewTrainingProgramParameters;
 	LazyAdapter adapter;
+	
+	// Tableau qui contiendra les paramètres du TrainingProgram
+	String[][] tabParameters;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_before_training_program_test);
 		
-		Log.d("info","cfffafas");
+		tabParameters = Parameters.getTrainingProgramParameters();
 		
 		listViewTrainingProgramParameters = (ListView)findViewById(R.id.listViewTrainingProgramParameters);
 		
-		final ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
+		final ArrayList<HashMap<String, String>> parametersList = new ArrayList<HashMap<String, String>>();
     	
-        // looping through all song nodes &lt;song&gt;
-        for (int i = 0; i < 5; i++) 
+        // on boucle sur les différents paramètres
+        for (int i = 0; i < tabParameters.length; i++) 
         {
-            // creating new HashMap
         	HashMap<String, String> map = new HashMap<String, String>();
-            //Element e = (Element) nl.item(i);
-            // adding each child node to HashMap key =&gt; value
-        	/*
-            map.put(KEY_ID, parser.getValue(e, KEY_ID));
-            map.put(KEY_TITLE, parser.getValue(e, KEY_TITLE));
-            map.put(KEY_ARTIST, parser.getValue(e, KEY_ARTIST));
-            map.put(KEY_DURATION, parser.getValue(e, KEY_DURATION));
-            map.put(KEY_THUMB_URL, parser.getValue(e, KEY_THUMB_URL));
-            */
 
-            map.put(KEY_TITLE, "Nom paramètre");
-            map.put(KEY_DURATION, "Valeur paramètre");
+            map.put(SystemUtils.KEY_PARAMETER_NAME, tabParameters[i][0]);
+            map.put(SystemUtils.KEY_PARAMETER_VALUE, tabParameters[i][1]);
+            map.put(SystemUtils.KEY_PARAMETER_TAG_1, tabParameters[i][2]);
+            map.put(SystemUtils.KEY_PARAMETER_TAG_2, tabParameters[i][3]);
 
-            // adding HashList to ArrayList
-            songsList.add(map);
+            // On remet les valeurs des paramètres à vide dans les fichiers de l'app
+			AppSettings.setString(tabParameters[i][2], "");
+
+            // on ajoute la hashlist dans la liste
+            parametersList.add(map);
         }
         
         // Getting adapter by passing xml data ArrayList
-        adapter=new LazyAdapter(this, songsList);
+        adapter=new LazyAdapter(this, parametersList, SystemUtils.TRAINING_PROGRAM_TEST);
         listViewTrainingProgramParameters.setAdapter(adapter);
  
-        // Click event for single list row
+        // Lors d'un click sur un élément de la liste
         listViewTrainingProgramParameters.setOnItemClickListener(new OnItemClickListener() {
  
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
             	
-            	TextView duration = (TextView)view.findViewById(R.id.duration); // duration
+            	// Récupération des objets de la cellule sélectionné
+            	final TextView parameterValue = (TextView)view.findViewById(R.id.textViewParameterValue);
+            	final TextView parameterName = (TextView)view.findViewById(R.id.textViewParameterName);
             	
-            	duration.setText("Salut les gens j'ai changé lol");
+            	// Si le paramètre courant a besoin d'un champ de texte pour être éditer
+            	if (parameterName.getTag(R.string.key_parameter_tag_2).toString().equalsIgnoreCase(Parameters.EDIT_TEXT_NUMBER))
+            	{
+            		// Affichage d'un champ de saisie
+                	
+                	AlertDialog.Builder alert = new AlertDialog.Builder(BeforeTrainingProgramTestActivity.this);
+
+                	alert.setTitle("Veuillez renseigner une valeur");
+                	alert.setMessage(parameterName.getText());
+
+                	// Set an EditText view to get user input 
+                	final EditText input = new EditText(BeforeTrainingProgramTestActivity.this);
+                	input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                	alert.setView(input);
+
+                	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
+                	{
+    	            	public void onClick(DialogInterface dialog, int whichButton) 
+    	            	{
+    	            		String value = input.getText().toString();
+    	            		parameterValue.setText(value);
+    	            		AppSettings.setString(parameterName.getTag(R.string.key_parameter_tag_1).toString(), value);
+    	            	}
+                	});
+
+                	alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+                	{
+                		public void onClick(DialogInterface dialog, int whichButton) 
+                		{
+                			// Canceled.
+                		}
+                	});
+
+                	alert.show();
+            	}
+            	else if (parameterName.getTag(R.string.key_parameter_tag_2).toString().equalsIgnoreCase(Parameters.EDIT_TEXT))
+            	{
+            		// Affichage d'un champ de saisie
+                	
+                	AlertDialog.Builder alert = new AlertDialog.Builder(BeforeTrainingProgramTestActivity.this);
+
+                	alert.setTitle("Veuillez renseigner une valeur");
+                	alert.setMessage(parameterName.getText());
+
+                	// Set an EditText view to get user input 
+                	final EditText input = new EditText(BeforeTrainingProgramTestActivity.this);
+                	alert.setView(input);
+
+                	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
+                	{
+    	            	public void onClick(DialogInterface dialog, int whichButton) 
+    	            	{
+    	            		String value = input.getText().toString();
+    	            		parameterValue.setText(value);
+    	            		AppSettings.setString(parameterName.getTag(R.string.key_parameter_tag_1).toString(), value);
+    	            	}
+                	});
+
+                	alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+                	{
+                		public void onClick(DialogInterface dialog, int whichButton) 
+                		{
+                			// Canceled.
+                		}
+                	});
+
+                	alert.show();
+            	}
+            	// Si le paramètre courant a plusieurs valeurs, on affiche ces valeurs dans une liste
+            	else if (parameterName.getTag(R.string.key_parameter_tag_2).toString().equalsIgnoreCase(Parameters.LIST))
+            	{
+            		// Récupération des valeurs des paramètres
+            		final CharSequence[] items = Parameters.getParametersValues(
+            				parameterName.getTag(R.string.key_parameter_tag_1).toString());
+
+                	AlertDialog.Builder builder = new AlertDialog.Builder(BeforeTrainingProgramTestActivity.this);
+                	builder.setTitle("Veuillez choisir un élément");
+                	builder.setItems(items, new DialogInterface.OnClickListener() 
+                	{
+                		// Lors du choix
+                	    public void onClick(DialogInterface dialog, int item)
+                	    {
+                	    	String value = items[item].toString();
+    	            		parameterValue.setText(value); 
+    	            		AppSettings.setString(parameterName.getTag(R.string.key_parameter_tag_1).toString(), value);
+                	    }
+                	});
+                	AlertDialog alert = builder.create();
+                	alert.show();
+            	}
+            	
+            	
+            	
             }
         });
-
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.before_training_program_test, menu);
+		
+		menu.findItem(R.id.action_start).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+			
+				// Vérifier que tous les paramètres ont été remplis
+				
+				boolean isAllParametersFilled = true;
+				
+				Intent intent = new Intent(BeforeTrainingProgramTestActivity.this, TrainingProgramTestActivity.class);
+				
+				// On boucle sur tous les paramètres dispos
+				for (int i = 0; i < tabParameters.length; i++) 
+				{					
+					// Si un des paramètres n'est pas renseigné
+					if (AppSettings.getString(tabParameters[i][2]).equalsIgnoreCase(""))
+					{
+						isAllParametersFilled = false;
+						
+						// Si un des paramètres manque, on casse la boucle
+						break;
+					}
+					else
+					{
+						// Si le paramètre est renseigné, on l'ajoute à la prochaine activité pour pouvoir ensuite le récupéré
+						
+						intent.putExtra(tabParameters[i][2], AppSettings.getString(tabParameters[i][2]));
+						
+					}
+				}
+				
+				// Si tous les paramètres sont ok
+				if (isAllParametersFilled)
+				{
+					Log.d("info", "Ready for this shit");
+					
+					// go to the test activity
+					startActivity(intent);
+				}
+				else
+				{
+					Log.d("info", "NOT READY for this shit");
+					
+					// On avertit l'utilisateur qu'il manque un ou plusieurs paramètres
+					
+					AlertDialog alertDialog = new AlertDialog.Builder(BeforeTrainingProgramTestActivity.this).create();
+					
+					alertDialog.setTitle(R.string.error);
+					alertDialog.setMessage(getString(R.string.fill_input_text));
+					
+					alertDialog.setButton(RESULT_OK, "OK", new DialogInterface.OnClickListener() {
+					      public void onClick(DialogInterface dialog, int which) {
+
+					      }
+					});
+					
+					// error
+					alertDialog.show();
+				}
+				
+				return false;
+			}
+		});
+		
 		return true;
 	}
 

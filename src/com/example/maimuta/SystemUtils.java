@@ -8,18 +8,30 @@ import android.util.DisplayMetrics;
 
 public class SystemUtils {
 	
-	public static int NUMBER_MAX_TRIALS_MODE = 1;
-	public static int MAX_TIME_MODE = 2;
+	public static int NUMBER_MAX_TRIALS_MODE 	= 1;
+	public static int MAX_TIME_MODE 			= 2;
 	
-	public static int DMS_TEST = 3;
-	public static int TRAINING_PROGRAM_TEST = 4;
-	public static int DNMS_TEST = 8;
+	public static int DMS_TEST 					= 3;
+	public static int TRAINING_PROGRAM_TEST 	= 4;
+	public static int DNMS_TEST	 				= 8;
 	
-	public static int STATE_PAUSE = 5;
-	public static int STATE_PLAY = 6;
-	public static int STATE_FINISH = 7;
+	public static int STATE_PAUSE 				= 5;
+	public static int STATE_PLAY 				= 6;
+	public static int STATE_FINISH 				= 7;
 	
-	public static final String PREFS_TEST = "FILETEST";
+	public static final String PREFS_TEST 		= "FILETEST";
+	
+	public static String KEY_PARAMETER_NAME 	= "KEY_PARAMETER_NAME";
+	public static String KEY_PARAMETER_VALUE 	= "KEY_PARAMETER_VALUE";
+	public static String KEY_PARAMETER_TAG_1 	= "KEY_PARAMETER_TAG_1";
+	public static String KEY_PARAMETER_TAG_2	= "KEY_PARAMETER_TAG_2";
+	
+	// stimuli forme carré
+	public static int STIMULI_FORM_SQUARE 		= 10;
+	
+	// stimuli forme cercle
+	public static int STIMULI_FORM_ROUND 		= 11;
+	
 	
 	// récupération de la hauteur de l'écran de l'appareil courant
 	public static int getScreenHeight(Activity act)
